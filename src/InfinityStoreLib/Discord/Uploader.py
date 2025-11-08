@@ -17,10 +17,8 @@ def writef(name, data):
         print(file_path)
         with open(file_path, 'wb') as file:
             file.write(data)
-
-        return True
-    except Exception as e:
-        return e
+    except:
+        print("error writing file")
 
 def writed(name, data):
     try:
@@ -75,31 +73,12 @@ def gen_chunks(enc_data):
         return e
 
 
-#def to_bytes(data):
-#    if isinstance(data, bytes):
-#        return data
-#    elif isinstance(data, str):
-#        return ''.join(format(byte, '08b') for byte in data.encode('utf-8'))
-#    elif isinstance(data, int):
-#        return bin(data)[2:]  # Remove '0b' prefix
-#    else:
-#        # Handle other types by converting to bytes via string representation
-#        return ''.join(format(byte, '08b') for byte in str(data).encode('utf-8'))
-
 # Daten Upload ready machen
-def format_data(data, key):
+def format_data(data_inbin, key):
     data_key = gen_key(key)
-    #print(data_key)
-    #print(data)
-    data_inbin =  data # to_bytes(data)
-    #print(data_inbin)
     data_hash = gen_data_hash(data_inbin)
-    #print(data_hash)
     enc_data = enc(data_inbin, data_key)
-    #print(enc_data)
     data_chunks = gen_chunks(enc_data)
-    #print(data_chunks)
-    #print("data chunks")
     return data_chunks , data_hash, data_key
 
 # Alle channels aus den settings lesen
@@ -119,9 +98,7 @@ def upload(data, cannels=None):
     try:
         for i in data:
             send = {fake.name(): i}
-            #print(send)
             response = requests.post(cannels[start_cannel-1] + "?wait=true", files=send)
-            #print(response)
             attachment_url.append(response.json()['attachments'][0]['url'])
             if len(cannels) > start_cannel: start_cannel +=1
             else: start_cannel = 0
@@ -203,19 +180,14 @@ def download_location(name ,location):
         #print(data)
         with open(location, 'wb+') as file:
             file.write(data)
-        #writef(location, data.__bytes__()) #ncith richtig
     else:
         print("hash mismatch")
 
 # datei herunterladen und obj zurückgeben
-def download_data(name , key=None):
+def download_data(name):
     urls, data_key = download_info(name)
     data = download_file(urls, data_key)
     if name == hashlib.sha512(data).hexdigest():
-        #print(data)
-        sdata = ''
-        #for i in range(0, len(data), 8):
-        #    sdata += chr(int(data[i:i + 8], 2))
         data = json.loads(data)
         return data
     else:
