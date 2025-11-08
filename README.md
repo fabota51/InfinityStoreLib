@@ -20,6 +20,8 @@ Data is securely **encrypted with AES**, chunked, and distributed across multipl
 ## Installation
 
 ```bash
+pip install InfinityStoreLib==0.0.1
+
 pip install .\infinitystorelib-0.0.1-py3-none-any.whl
 ```
 
