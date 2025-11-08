@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "InfinityStoreLib"
+version = "0.0.1"
+authors = [
+  { name="Fabota51"},
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["Discord", "Storage", "Infinity", "Uploader", "Python"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests>=2.32.5",
+    "pyAesCrypt>=6.1.1",
+    "PyYAML>=6.0.3",
+    "Faker>=37.11.0"
+]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/InfinityStoreLib"]
+
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
