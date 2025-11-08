@@ -29,3 +29,7 @@ packages = ["src/InfinityStoreLib"]
 
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/fabota51/InfinityStoreLib"
+Issues = "https://github.com/fabota51/InfinityStoreLib/issues"
